@@ -1,7 +1,6 @@
-# ignore input and output files
 DAMM.jl~
 .DAMM.jl.un~
 DAMM_param.jl~
 .DAMM_param.jl.un~
-Makie.DAMM.jl~
-.Makie.DAMM.jl.un~
+Makie_DAMM.jl~
+.Makie_DAMM.jl.un~
