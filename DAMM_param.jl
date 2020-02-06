@@ -1,6 +1,6 @@
 # Parameters to fit to the data
 AlphaSx = 3e8 # pre-exponential factor, umol h-1 g-1
-kMSx = 2e-6 # constant, umol L-1
+# kMSx = 2e-6 # constant, umol L-1
 kMO2 = 3e-3 # Michaelis constant for O2, L L-1
 
 # Fixed parameters, values as in John Drake et al., 2018
