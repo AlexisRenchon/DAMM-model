@@ -8,9 +8,3 @@ function DAMM(Tsoil::Float64, Msoil::Float64)
 	areaCflux = 10000 * Soildepth * Resp # in mgC m-2 hr-1
 	Rsoil = areaCflux / 1000 / 12 * 1e6 / 60 / 60 # in umol CO2 m-2 s-1
 end
-
-
-
-
-
-

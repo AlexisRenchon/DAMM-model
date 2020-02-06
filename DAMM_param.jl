@@ -15,4 +15,3 @@ psx = 2.4e-2 # Fraction of soil C that is considered soluble
 Dliq = 3.17 # Diffusion coeff of substrate in liquid phase
 Dgas = 1.67 # Diffusion coefficient of oxygen in air
 Soildepth = 10 # effective soil depth in cm
-
