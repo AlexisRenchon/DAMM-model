@@ -18,7 +18,7 @@ sl_2 = layout[4, 1:5] = LSlider(scene, range= 5e7:1e6:5e8)
 Text_date = layout[5,1:5] = LText(scene, text= "kMO2", textsize=20)
 sl_3 = layout[6, 1:5] = LSlider(scene, range= 1e-4:1e-5:1e-2)
 Text_date = layout[7,1:5] = LText(scene, text= "EaSx", textsize=20)
-sl_4 = layout[8, 1:5] = LSlider(scene, range= 50.0:0.2:70.0)
+sl_4 = layout[8, 1:5] = LSlider(scene, range= 58.0:0.2:70.0)
 
 ax3D = layout[1:20, 5:20] = LRect(scene, visible = false);
 scene3D = Scene(scene, lift(IRect2D, ax3D.layoutnodes.computedbbox), camera = cam3d!, raw = false, show_axis = true);
@@ -41,4 +41,3 @@ scene
 #          recordframe!(io) # record a new frame
 #      end
 #  end
-
