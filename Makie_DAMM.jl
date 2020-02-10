@@ -20,8 +20,8 @@ sl_3 = layout[6, 1:5] = LSlider(scene, range= 1e-4:1e-5:1e-2)
 
 ax3D = layout[1:20, 5:20] = LRect(scene, visible = false);
 scene3D = Scene(scene, lift(IRect2D, ax3D.layoutnodes.computedbbox), camera = cam3d!, raw = false, show_axis = true);
-surface!(scene3D, x, y, lift((kMSx, AlphaSx, kMO2)->Float64[DAMM(Tsoil, Msoil, kMSx, AlphaSx, kMO2) for Tsoil in Tsoil_range, Msoil in Msoil_range], sl_1.value, sl_2.value, sl_3.value), colormap = :lighttest, transparency = true, alpha = 0.1, shading = false, limits = Rect(10, 0, 0, 25, 0.4, 20))
-wireframe!(scene3D, x, y, lift((kMSx, AlphaSx, kMO2)->Float64[DAMM(Tsoil, Msoil, kMSx, AlphaSx, kMO2) for Tsoil in Tsoil_range, Msoil in Msoil_range], sl_1.value, sl_2.value, sl_3.value), overdraw = true, transparency = true, color = (:black, 0.05))
+surface!(scene3D, x, y, lift((kMSx_v, AlphaSx_v, kMO2_v)->Float64[DAMM(Tsoil, Msoil; kMSx = kMSx_v, AlphaSx = AlphaSx_v, kMO2 = kMO2_v) for Tsoil in Tsoil_range, Msoil in Msoil_range], sl_1.value, sl_2.value, sl_3.value), colormap = :lighttest, transparency = true, alpha = 0.1, shading = false, limits = Rect(10, 0, 0, 25, 0.4, 20))
+wireframe!(scene3D, x, y, lift((kMSx_v, AlphaSx_v, kMO2_v)->Float64[DAMM(Tsoil, Msoil; kMSx = kMSx_v, AlphaSx = AlphaSx_v, kMO2 = kMO2_v) for Tsoil in Tsoil_range, Msoil in Msoil_range], sl_1.value, sl_2.value, sl_3.value), overdraw = true, transparency = true, color = (:black, 0.05))
 scale!(scene3D, 5, 200, 5) 
 center!(scene3D)
 
