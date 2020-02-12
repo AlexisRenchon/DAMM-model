@@ -11,12 +11,13 @@ y = Msoil_range = 0.0:0.01:0.38
 
 scene, layout = layoutscene()
 texts = Array{LText}(undef,5)
-sliders = Array{LSlider}(undef,5)
-sliders[1] = LSlider(scene, range= 1e-8:1e-8:1e-6)
-sliders[2] = LSlider(scene, range= 5e7:1e6:5e8)
-sliders[3] = LSlider(scene, range= 1e-4:1e-5:1e-2)
-sliders[4] = LSlider(scene, range= 58.0:0.2:70.0)
-sliders[5] = LSlider(scene, range= 0.005:0.001:0.02)
+sliderranges = [
+    1e-8:1e-8:1e-6, 
+    5e7:1e6:5e8,
+    1e-4:1e-5:1e-2,
+    58.0:0.2:70.0,
+    0.005:0.001:0.02]
+sliders = [LSlider(scene, range = sr) for sr in sliderranges]
 texts[1] = LText(scene, text= lift(X->string("kMSx", " = ", round(X, sigdigits = 2)), sliders[1].value), textsize=15, width = Auto(false))
 texts[2] = LText(scene, text= lift(X->string("AlphaSx", " = ", X), sliders[2].value), textsize=15, width = Auto(false))
 texts[3] = LText(scene, text= lift(X->string("kMO2", " = ", X), sliders[3].value), textsize=15, width = Auto(false))
@@ -38,3 +39,4 @@ axis3D.names.axisnames = ("Tsoil", "SWC", "Rsoil")
 axis3D[:names][:textsize] = (400.0,400.0,400.0) # same as axis.names.textsize
 
 scene
+
