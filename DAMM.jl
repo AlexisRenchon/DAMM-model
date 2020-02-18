@@ -1,7 +1,7 @@
 # Dual-Arrhenius and Michaelis-Menten model, Davidson et al., 2012
 # Mechanistic model of heterotrophic soil respiration as a function of soil temperature (Tsoil, °C)  and soil moisture (Msoil, m3 m-3)
 # For description and dimension of parameters, see DAMM_param.jl
-function DAMM(Tsoil::Float64, Msoil::Float64; kMSx::Float64=1e-8, AlphaSx::Float64=1e8, kMO2::Float64=1e-3, EaSx::Float64=62, Sxtot::Float64=0.0125)::Float64 
+function DAMM(Tsoil::Float64, Msoil::Float64; kMSx::Float64=1e-8, AlphaSx::Float64=1e8, kMO2::Float64=1e-3, EaSx::Float64=62.0, Sxtot::Float64=0.0125)::Float64 
 	Sx = Sxtot * psx * Dliq * Msoil^3
 	O2 = Dgas * O2airfrac * ((porosity - Msoil)^(4/3))
 	MMSx = Sx / (kMSx + Sx)
