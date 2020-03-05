@@ -10,4 +10,4 @@ Interactive visualisation of DAMM
 
 |Animation|
 
-.. |Animation| image:: ./images/test.gif
+.. |Animation| image:: ./images/DAMM.gif
