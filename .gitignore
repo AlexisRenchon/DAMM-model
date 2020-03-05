@@ -1,15 +1,7 @@
+# ignore input and output files
 Output/
 Input/
-DAMM.jl~
-.DAMM.jl.un~
-DAMM_param.jl~
-.DAMM_param.jl.un~
-Makie_DAMM.jl~
-.Makie_DAMM.jl.un~
-.Makie__DAMM.jl.swp
-Makie_DAMM_v2.jl~
-.Makie_DAMM_v2.jl.un~
-.Makie__DAMM_v2.jl.swp
-DAMM_LsqFit.jl~
-.DAMM_LsqFit.jl.un~
-.DAMM_LsqFit.jl.swp
+
+# ignore VIM temp files
+*~
+*swp

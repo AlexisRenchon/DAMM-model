@@ -25,7 +25,7 @@ texts[4] = LText(scene, text= lift(X->string(to_latex("E_a"), " = ", X, to_latex
 texts[5] = LText(scene, text= lift(X->string(to_latex("S_x"), " = ", X, to_latex(" (gC cm^{-3})")), sliders[5].value), textsize=15, width = Auto(false));
 vertical_sublayout = layout[1, 1] = vbox!(
     Iterators.flatten(zip(texts, sliders))...;
-    width = 200, height = Auto(false))
+    width = 200, height = Auto(false));
 
 ax3D = layout[1, 2] = LRect(scene, visible = false);
 scene3D = Scene(scene, lift(IRect2D, ax3D.layoutnodes.computedbbox), camera = cam3d!, raw = false, show_axis = true);
@@ -35,6 +35,7 @@ scale!(scene3D, 1, 50, 1);
 center!(scene3D);
 axis3D = scene3D[Axis];
 axis3D[:ticks][:textsize] = (400.0,400.0,400.0);
+#axis3D.names.axisnames = ("", "", "");
 axis3D.names.axisnames = (to_latex("T_{soil} (°C)"), to_latex("\\theta (m^3 m^{-3})"), to_latex("R_{soil} (\\mumol m^{-2} s^{-1})"));
 axis3D[:names][:textsize] = (400.0,400.0,400.0); # same as axis.names.textsize
 
