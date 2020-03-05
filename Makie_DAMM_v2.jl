@@ -41,7 +41,7 @@ axis3D[:names][:textsize] = (400.0,400.0,400.0); # same as axis.names.textsize
 scene
 
 # to record some interaction
-#record(scene, "images\\DAMM.gif") do io
+#record(scene, "images\\DAMM.mp4") do io
 #     for i = 1:200
 #         sleep(0.1)     
 #         recordframe!(io) # record a new frame
