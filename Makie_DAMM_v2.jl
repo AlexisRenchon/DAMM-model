@@ -1,4 +1,4 @@
-using Makie, MakieLayout, UnicodeFun
+using Makie, AbstractPlotting.MakieLayout, UnicodeFun
 
 # Load DAMM function
 include("DAMM.jl");
@@ -27,9 +27,13 @@ vertical_sublayout = layout[1, 1] = vbox!(
     Iterators.flatten(zip(texts, sliders))...;
     width = 200, height = Auto(false));
 
-ax3D = layout[1, 2] = LRect(scene, visible = false);
-scene3D = Scene(scene, lift(IRect2D, ax3D.layoutnodes.computedbbox), camera = cam3d!, raw = false, show_axis = true);
+#ax3D = layout[1, 2] = LRect(scene, visible = false);
+#scene3D = Scene(scene, lift(IRect2D, ax3D.layoutnodes.computedbbox), camera = cam3d!, raw = false, show_axis = true);
+
+scene3D = layout[1, 2] = LScene(scene, camera = cam3d!, raw = false, show_axis = true);
+
 surface!(scene3D, x, y, lift((kMSx_v, AlphaSx_v, kMO2_v, EaSx_v, Sxtot_v)->Float64[DAMM(Tsoil, Msoil; kMSx = kMSx_v, AlphaSx = AlphaSx_v, kMO2 = kMO2_v, EaSx = EaSx_v, Sxtot = Sxtot_v) for Tsoil in Tsoil_range, Msoil in Msoil_range], sliders[1].value, sliders[2].value, sliders[3].value, sliders[4].value, sliders[5].value), colormap = :lighttest, transparency = true, alpha = 0.1, shading = false, limits = Rect(10, 0, 0, 25, 0.4, 20));
+
 wireframe!(scene3D, x, y, lift((kMSx_v, AlphaSx_v, kMO2_v, EaSx_v, Sxtot_v)->Float64[DAMM(Tsoil, Msoil; kMSx = kMSx_v, AlphaSx = AlphaSx_v, kMO2 = kMO2_v, EaSx = EaSx_v, Sxtot = Sxtot_v) for Tsoil in Tsoil_range, Msoil in Msoil_range], sliders[1].value, sliders[2].value, sliders[3].value, sliders[4].value, sliders[5].value), overdraw = true, transparency = true, color = (:black, 0.05));
 scale!(scene3D, 1, 50, 1);
 center!(scene3D);
