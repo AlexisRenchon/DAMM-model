@@ -30,14 +30,14 @@ vertical_sublayout = layout[1, 1] = vbox!(
 #ax3D = layout[1, 2] = LRect(scene, visible = false);
 #scene3D = Scene(scene, lift(IRect2D, ax3D.layoutnodes.computedbbox), camera = cam3d!, raw = false, show_axis = true);
 
-scene3D = layout[1, 2] = LScene(scene, camera = cam3d!, raw = false, show_axis = true);
+scene3D = layout[1, 2] = LScene(scene, scenekw = (camera = cam3d!, raw = false, show_axis = true));
 
 surface!(scene3D, x, y, lift((kMSx_v, AlphaSx_v, kMO2_v, EaSx_v, Sxtot_v)->Float64[DAMM(Tsoil, Msoil; kMSx = kMSx_v, AlphaSx = AlphaSx_v, kMO2 = kMO2_v, EaSx = EaSx_v, Sxtot = Sxtot_v) for Tsoil in Tsoil_range, Msoil in Msoil_range], sliders[1].value, sliders[2].value, sliders[3].value, sliders[4].value, sliders[5].value), colormap = :lighttest, transparency = true, alpha = 0.1, shading = false, limits = Rect(10, 0, 0, 25, 0.4, 20));
 
 wireframe!(scene3D, x, y, lift((kMSx_v, AlphaSx_v, kMO2_v, EaSx_v, Sxtot_v)->Float64[DAMM(Tsoil, Msoil; kMSx = kMSx_v, AlphaSx = AlphaSx_v, kMO2 = kMO2_v, EaSx = EaSx_v, Sxtot = Sxtot_v) for Tsoil in Tsoil_range, Msoil in Msoil_range], sliders[1].value, sliders[2].value, sliders[3].value, sliders[4].value, sliders[5].value), overdraw = true, transparency = true, color = (:black, 0.05));
-scale!(scene3D, 1, 50, 1);
-center!(scene3D);
-axis3D = scene3D[Axis];
+scale!(scene3D.scene, 1, 50, 1);
+center!(scene3D.scene);
+axis3D = scene3D.scene[Axis];
 axis3D[:ticks][:textsize] = (400.0,400.0,400.0);
 #axis3D.names.axisnames = ("", "", "");
 axis3D.names.axisnames = (to_latex("T_{soil} (°C)"), to_latex("\\theta (m^3 m^{-3})"), to_latex("R_{soil} (\\mumol m^{-2} s^{-1})"));
