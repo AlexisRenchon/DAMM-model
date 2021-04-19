@@ -23,7 +23,7 @@ texts[2] = LText(scene, text= lift(X->string(to_latex("\\alpha_{sx}"), " = ", X,
 texts[3] = LText(scene, text= lift(X->string(to_latex("kM_{o2}"), " = ", X, to_latex(" (L L^{-1})")), sliders[3].value), textsize=15, width = Auto(false));
 texts[4] = LText(scene, text= lift(X->string(to_latex("E_a"), " = ", X, to_latex(" (kJ mol^{-1})")), sliders[4].value), textsize=15, width = Auto(false));
 texts[5] = LText(scene, text= lift(X->string(to_latex("S_x"), " = ", X, to_latex(" (gC cm^{-3})")), sliders[5].value), textsize=15, width = Auto(false));
-vertical_sublayout = layout[1, 1] = vbox!(
+vertical_sublayout = layout[1, 1] = vgrid!(
     Iterators.flatten(zip(texts, sliders))...;
     width = 200, height = Auto(false));
 
