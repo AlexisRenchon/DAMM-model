@@ -45,8 +45,6 @@ surface!(ax3D, x_ax, y_ax, lift((kMSx, AlphaSx, kMO2, EaSx, Sxtot)->Matrix(spars
 
 wireframe!(ax3D, x_ax, y_ax, lift((kMSx, AlphaSx, kMO2, EaSx, Sxtot)->Matrix(sparse(x, y, DAMM(x_range, [AlphaSx, EaSx, kMSx, kMO2, 0.4, Sxtot]))), sliders[1].value, sliders[2].value, sliders[3].value, sliders[4].value, sliders[5].value), overdraw = true, transparency = true, color = (:black, 0.1));
 
-axis3D.names.axisnames = (to_latex("T_{soil} (°C)"), to_latex("\\theta (m^3 m^{-3})"), to_latex("R_{soil} (\\mumol m^{-2} s^{-1})"));
-
 ax3D.xlabel = to_latex("T_{soil} (°C)");
 ax3D.ylabel = to_latex("\\theta (m^3 m^{-3})");
 ax3D.zlabel = to_latex("R_{soil} (\\mumol m^{-2} s^{-1})");
