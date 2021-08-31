@@ -1,4 +1,4 @@
-using GLMakie, AbstractPlotting, UnicodeFun, DAMMmodel, SparseArrays
+using GLMakie, UnicodeFun, DAMMmodel, SparseArrays
 
 L = 40 # resolution
 x = collect(range(1, length=L, stop=1))
