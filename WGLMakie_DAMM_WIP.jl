@@ -30,12 +30,12 @@ sliderranges = [
     0.1:0.1:1, # alpha
     0:1:50, # kMsx
     0:1:50, # kmo2
-    0.2:0.05:0.8]; # porosity
+    0.2:0.05:0.7]; # porosity
 sliders = [Slider(fig, range = sr) for sr in sliderranges];
 texts[1] = Label(fig, text= lift(X->string(to_latex("\\alpha_{sx}"), " = ", X,
-		to_latex(" (mgC cm^{-3} h^{-1})")), sliders[2].value), textsize=35, width = Auto(false));
+		to_latex(" (mgC cm^{-3} h^{-1})")), sliders[1].value), textsize=35, width = Auto(false));
 texts[2] = Label(fig, text= lift(X->string(to_latex("kM_{sx}"), " = ", round(X, sigdigits = 2),
-		to_latex(" (gC cm^{-3})")), sliders[1].value), textsize=35, width = Auto(false));
+		to_latex(" (gC cm^{-3})")), sliders[2].value), textsize=35, width = Auto(false));
 texts[3] = Label(fig, text= lift(X->string(to_latex("kM_{o2}"), " = ", X,
 		to_latex(" (L L^{-1})")), sliders[3].value), textsize=35, width = Auto(false));
 texts[4] = Label(fig, text= lift(X->string(to_latex("Porosity"), " = ", X,
