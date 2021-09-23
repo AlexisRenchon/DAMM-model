@@ -1,4 +1,4 @@
-using GLMakie, UnicodeFun, SparseArrays, JSServe
+using WGLMakie, UnicodeFun, SparseArrays, JSServe
 using JSServe.DOM
 
 # load DAMM, 3 params + porosity
