@@ -43,7 +43,7 @@ function create_plot(sliders1, sliders2, sliders3, sliders4)
 #	    Iterators.flatten(zip(texts, sliders))...;
 #	    width = 200, height = 1000);
 
-	ax3D = Axis3(fig[1,2])
+	ax3D = Axis3(fig[1,1])
 
 	# need DAMM to return NAN instead of bug when SWC > porosity
 	# try catch?
@@ -79,10 +79,10 @@ function handler(s, r)
 	sliders3 = JSServe.Slider(sr[3])
 	sliders4 = JSServe.Slider(sr[4])
 	fig = create_plot(sliders1, sliders2, sliders3, sliders4)
-	sl1disp = DOM.div(sliders1) #, style="width: $(size(fig)[2] -250)px")
-	sl2disp = DOM.div(sliders2) #, style="width: $(size(fig)[2] -250)px")
-	sl3disp = DOM.div(sliders3) #, style="width: $(size(fig)[2] -250)px")
-	sl4disp = DOM.div(sliders4) #, style="width: $(size(fig)[2] -250)px")
+	sl1disp = DOM.div(sliders1)#, style="width: $(size(fig)[2] -250)px")
+	sl2disp = DOM.div(sliders2)#, style="width: $(size(fig)[2] -250)px")
+	sl3disp = DOM.div(sliders3)#, style="width: $(size(fig)[2] -250)px")
+	sl4disp = DOM.div(sliders4)#, style="width: $(size(fig)[2] -250)px")
 
     return DOM.div(JSServe.Asset(JSServe.dependency_path("styled.css")), sl1disp, sl2disp, sl3disp, sl4disp, fig, style = """
     display: flex;
@@ -103,4 +103,33 @@ states = AppInteraktive(s, nothing)
 #sizeof(MsgPack.pack(x)) / 10^6
 mkdir("simple")
 JSServe.export_standalone(AppInteraktive, "simple")
+
+
+
+
+
+# test on localhost
+# IT WORKS! ...
+# ... But changing 1 slider reset others to inital values? 
+using Observables
+
+App() do session::Session    
+	sliders1 = JSServe.Slider(sr[1])
+	sliders2 = JSServe.Slider(sr[2])
+	sliders3 = JSServe.Slider(sr[3])
+	sliders4 = JSServe.Slider(sr[4])
+	fig = create_plot(sliders1, sliders2, sliders3, sliders4)    
+    	slider1 = DOM.div("alpha: ", sliders1, sliders1.value)
+	slider2 = DOM.div("kMsx: ", sliders2, sliders2.value)
+	slider3 = DOM.div("kMO2: ", sliders3, sliders3.value)
+	slider4 = DOM.div("porosity: ", sliders4, sliders4.value)
+    	return JSServe.record_states(session, DOM.div(slider1, slider2, 
+						      slider3, slider4, fig))
+end
+
+
+
+
+
+
 
