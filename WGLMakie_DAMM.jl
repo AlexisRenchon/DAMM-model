@@ -20,28 +20,28 @@ y = Int.(y)
 x_ax = collect(range(1, length=L, stop=L))
 
 
-function create_plot(sliders)
+function create_plot(sliders1, sliders2, sliders3, sliders4)
 	fig = Figure(resolution = (1800, 1000))
 	#fig
 
 	#ax1 = fig[1, 1] = Axis(fig, title = "Parameters")
 	#fig
 
-	texts = Array{Label}(undef, 4);
+	#texts = Array{Label}(undef, 4);
 	#sliders = [Slider(fig, range = sr) for sr in sliderranges];
-	texts[1] = Label(fig, text= lift(X->string(to_latex("\\alpha_{sx}"), " = ", X,
-			to_latex(" (mgC cm^{-3} h^{-1})")), sliders[1].value), textsize=35, width = Auto(false));
-	texts[2] = Label(fig, text= lift(X->string(to_latex("kM_{sx}"), " = ", round(X, sigdigits = 2),
-			to_latex(" (gC cm^{-3})")), sliders[2].value), textsize=35, width = Auto(false));
-	texts[3] = Label(fig, text= lift(X->string(to_latex("kM_{o2}"), " = ", X,
-			to_latex(" (L L^{-1})")), sliders[3].value), textsize=35, width = Auto(false));
-	texts[4] = Label(fig, text= lift(X->string(to_latex("Porosity"), " = ", X,
-			to_latex(" (m^3 m^{-3})")), sliders[4].value), textsize=35, width = Auto(false));
+#	texts[1] = Label(fig, text= lift(X->string(to_latex("\\alpha_{sx}"), " = ", X,
+#			to_latex(" (mgC cm^{-3} h^{-1})")), sliders[1].value), textsize=35, width = Auto(false));
+#	texts[2] = Label(fig, text= lift(X->string(to_latex("kM_{sx}"), " = ", round(X, sigdigits = 2),
+#			to_latex(" (gC cm^{-3})")), sliders[2].value), textsize=35, width = Auto(false));
+#	texts[3] = Label(fig, text= lift(X->string(to_latex("kM_{o2}"), " = ", X,
+#			to_latex(" (L L^{-1})")), sliders[3].value), textsize=35, width = Auto(false));
+#	texts[4] = Label(fig, text= lift(X->string(to_latex("Porosity"), " = ", X,
+#			to_latex(" (m^3 m^{-3})")), sliders[4].value), textsize=35, width = Auto(false));
 	#texts[4] = Label(fig, text= lift(X->string(to_latex("E_a"), " = ", X, to_latex(" (kJ mol^{-1})")), sliders[4].value), textsize=35, width = Auto(false));
 	#texts[5] = Label(fig, text= lift(X->string(to_latex("S_x"), " = ", X, to_latex(" (gC cm^{-3})")), sliders[5].value), textsize=35, width = Auto(false));
-	vertical_sublayout = fig[1, 1] = vgrid!(
-	    Iterators.flatten(zip(texts, sliders))...;
-	    width = 200, height = 1000);
+#	vertical_sublayout = fig[1, 1] = vgrid!(
+#	    Iterators.flatten(zip(texts, sliders))...;
+#	    width = 200, height = 1000);
 
 	ax3D = Axis3(fig[1,2])
 
@@ -51,13 +51,13 @@ function create_plot(sliders)
 
 	surface!(ax3D, x_ax, y_ax, lift((AlphaSx, kMSx, kMO2, Porosity)->
 		Matrix(sparse(x, y, DAMM(x_range, [AlphaSx, kMSx, kMO2, Porosity]))),
-		sliders[1].value, sliders[2].value, sliders[3].value, sliders[4].value),
+		sliders1.value, sliders2.value, sliders3.value, sliders4.value),
 		colormap = Reverse(:Spectral), transparency = true, alpha = 0.2, shading = false) 
 		#, limits = Rect(10, 0, 0, 25, 0.4, 20));
 
 	wireframe!(ax3D, x_ax, y_ax, lift((AlphaSx, kMSx, kMO2, Porosity)->
 		Matrix(sparse(x, y, DAMM(x_range, [AlphaSx, kMSx, kMO2, Porosity]))),
-		sliders[1].value, sliders[2].value, sliders[3].value, sliders[4].value),
+		sliders1.value, sliders2.value, sliders3.value, sliders4.value),
 		   overdraw = true, transparency = true, color = (:black, 0.1));
 
 	ax3D.xlabel = to_latex("T_{soil} (°C)");
@@ -68,18 +68,23 @@ function create_plot(sliders)
 	return fig
 end
 
-sliderranges = [
-	    0.1:0.1:1, # alpha
-	    0:1:50, # kMsx
-	    0:1:50, # kmo2
-	    0.2:0.05:0.7]; # porosity
-
+sr = [0.1:0.1:1, # alpha
+	0:1:50, # kMsx
+	0:1:50, # kmo2
+	0.2:0.05:0.7]; # porosity
 
 function handler(s, r)
-    sliders = JSServe.Slider(sliderranges)
-    fig = create_plot(sliders)
-    sldisp = DOM.div(sliders, style="width: $(size(scene)[2] -250)px")
-    return DOM.div(JSServe.Asset(JSServe.dependency_path("styled.css")), sldisp, scene, style = """
+	sliders1 = JSServe.Slider(sr[1])
+	sliders2 = JSServe.Slider(sr[2])
+	sliders3 = JSServe.Slider(sr[3])
+	sliders4 = JSServe.Slider(sr[4])
+	fig = create_plot(sliders1, sliders2, sliders3, sliders4)
+	sl1disp = DOM.div(sliders1) #, style="width: $(size(fig)[2] -250)px")
+	sl2disp = DOM.div(sliders2) #, style="width: $(size(fig)[2] -250)px")
+	sl3disp = DOM.div(sliders3) #, style="width: $(size(fig)[2] -250)px")
+	sl4disp = DOM.div(sliders4) #, style="width: $(size(fig)[2] -250)px")
+
+    return DOM.div(JSServe.Asset(JSServe.dependency_path("styled.css")), sl1disp, sl2disp, sl3disp, sl4disp, fig, style = """
     display: flex;
     fle: flex;
     flex-direction: column;
