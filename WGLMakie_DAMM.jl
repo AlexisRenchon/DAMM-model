@@ -28,12 +28,7 @@ function create_plot(sliders)
 	#fig
 
 	texts = Array{Label}(undef, 4);
-	sliderranges = [
-	    0.1:0.1:1, # alpha
-	    0:1:50, # kMsx
-	    0:1:50, # kmo2
-	    0.2:0.05:0.7]; # porosity
-	sliders = [Slider(fig, range = sr) for sr in sliderranges];
+	#sliders = [Slider(fig, range = sr) for sr in sliderranges];
 	texts[1] = Label(fig, text= lift(X->string(to_latex("\\alpha_{sx}"), " = ", X,
 			to_latex(" (mgC cm^{-3} h^{-1})")), sliders[1].value), textsize=35, width = Auto(false));
 	texts[2] = Label(fig, text= lift(X->string(to_latex("kM_{sx}"), " = ", round(X, sigdigits = 2),
@@ -73,10 +68,17 @@ function create_plot(sliders)
 	return fig
 end
 
+sliderranges = [
+	    0.1:0.1:1, # alpha
+	    0:1:50, # kMsx
+	    0:1:50, # kmo2
+	    0.2:0.05:0.7]; # porosity
+
+
 function handler(s, r)
-    sl = JSServe.Slider(1:335)
-    fig = create_plot(sl)
-    sldisp = DOM.div(sl, style="width: $(size(scene)[2] -250)px")
+    sliders = JSServe.Slider(sliderranges)
+    fig = create_plot(sliders)
+    sldisp = DOM.div(sliders, style="width: $(size(scene)[2] -250)px")
     return DOM.div(JSServe.Asset(JSServe.dependency_path("styled.css")), sldisp, scene, style = """
     display: flex;
     fle: flex;
