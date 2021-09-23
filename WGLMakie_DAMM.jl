@@ -79,12 +79,14 @@ function handler(s, r)
 	sliders3 = JSServe.Slider(sr[3])
 	sliders4 = JSServe.Slider(sr[4])
 	fig = create_plot(sliders1, sliders2, sliders3, sliders4)
-	sl1disp = DOM.div(sliders1)#, style="width: $(size(fig)[2] -250)px")
-	sl2disp = DOM.div(sliders2)#, style="width: $(size(fig)[2] -250)px")
-	sl3disp = DOM.div(sliders3)#, style="width: $(size(fig)[2] -250)px")
-	sl4disp = DOM.div(sliders4)#, style="width: $(size(fig)[2] -250)px")
+	slider1 = DOM.div("alpha: ", sliders1, sliders1.value)
+	slider2 = DOM.div("kMsx: ", sliders2, sliders2.value)
+	slider3 = DOM.div("kMO2: ", sliders3, sliders3.value)
+	slider4 = DOM.div("porosity: ", sliders4, sliders4.value)
+	#return JSServe.record_states(session, DOM.div(slider1, slider2, 
+#						      slider3, slider4, fig))
 
-    return DOM.div(JSServe.Asset(JSServe.dependency_path("styled.css")), sl1disp, sl2disp, sl3disp, sl4disp, fig, style = """
+    return DOM.div(JSServe.Asset(JSServe.dependency_path("styled.css")), slider1, slider2, slider3, slider4, fig, style = """
     display: flex;
     fle: flex;
     flex-direction: column;
@@ -126,10 +128,5 @@ App() do session::Session
     	return JSServe.record_states(session, DOM.div(slider1, slider2, 
 						      slider3, slider4, fig))
 end
-
-
-
-
-
 
 
